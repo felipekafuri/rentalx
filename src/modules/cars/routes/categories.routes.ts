@@ -4,7 +4,11 @@ import { listCategoriesController } from '../useCases/listCategories'
 
 const categoriesRouter = Router()
 
-categoriesRouter.post('/', createCategoriesController.handle)
-categoriesRouter.get('/', listCategoriesController.handle)
+categoriesRouter.post('/', (request, response) =>
+  createCategoriesController.handle(request, response)
+)
+categoriesRouter.get('/', (request, response) =>
+  listCategoriesController.handle(request, response)
+)
 
 export { categoriesRouter }
