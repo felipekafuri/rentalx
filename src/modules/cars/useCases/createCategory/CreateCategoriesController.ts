@@ -8,7 +8,10 @@ class CreateCategoriesController {
     try {
       const { name, description } = request.body
 
-      const category = this.createCategoryUseCase.execute({ name, description })
+      const category = await this.createCategoryUseCase.execute({
+        name,
+        description
+      })
 
       return response.status(201).json(category)
     } catch (error) {

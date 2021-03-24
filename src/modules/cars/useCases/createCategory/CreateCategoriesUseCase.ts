@@ -9,14 +9,14 @@ interface IRequestDTO {
 class CreateCategoriesUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
-  public execute({ name, description }: IRequestDTO): Category {
-    const categoryExists = this.categoriesRepository.findByName(name)
+  public async execute({ name, description }: IRequestDTO): Promise<Category> {
+    const categoryExists = await this.categoriesRepository.findByName(name)
 
     if (categoryExists) {
       throw new Error('Category already exists')
     }
 
-    const category = this.categoriesRepository.create({
+    const category = await this.categoriesRepository.create({
       name,
       description
     })
