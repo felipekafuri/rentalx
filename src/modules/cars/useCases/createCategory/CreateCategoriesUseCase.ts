@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe'
 import { Category } from '../../entities/Category'
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository'
 
@@ -6,8 +7,12 @@ interface IRequestDTO {
   description: string
 }
 
+@injectable()
 class CreateCategoriesUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository) {}
+  constructor(
+    @inject('CategoriesRepository')
+    private categoriesRepository: ICategoriesRepository
+  ) {}
 
   public async execute({ name, description }: IRequestDTO): Promise<Category> {
     const categoryExists = await this.categoriesRepository.findByName(name)

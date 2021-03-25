@@ -4,22 +4,24 @@
     "title": "Rentalx Documentation",
     "description": "This is an api for rentalx",
     "version": "1.0.0",
-    "contact":{
+    "contact": {
       "email": "felipe11.rk@gmail.com"
     }
   },
   "paths": {
     "/categories": {
       "post": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "summary": "Create a category",
         "description": "Create a new category and save on database",
         "requestBody": {
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
-                "properties":{
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
                   "name": {
                     "type": "string"
                   },
@@ -29,42 +31,43 @@
                 },
                 "example": {
                   "name": "SUV",
-                  "description":"Brand new car SUV category"
+                  "description": "Brand new car SUV category"
                 }
               }
             }
           }
         },
-        "responses":{
+        "responses": {
           "201": {
             "description": "Created"
           },
-          "400":{
-            "description":"Bad Request"
+          "400": {
+            "description": "Bad Request"
           }
         }
       },
-      "get":{
-        "tags": ["Categories"],
+      "get": {
+        "tags": [
+          "Categories"
+        ],
         "summary": "List all categories",
-        "description":"List all categories",
+        "description": "List all categories",
         "responses": {
-          "200":{
+          "200": {
             "description": "Success",
-            "content":{
-              "application/json":{
+            "content": {
+              "application/json": {
                 "schema": {
                   "type": "array",
-                  "items":{
+                  "items": {
                     "type": "object",
-                    "properties":{
+                    "properties": {
                       "name": {
-                        "type":"string"
+                        "type": "string"
                       },
                       "description": {
                         "type": "string"
                       }
-
                     }
                   }
                 }
@@ -72,6 +75,76 @@
             }
           }
         }
+      }
+    },
+    "/categories/import":{
+      "post":{
+        "tags":["Categories"],
+        "summary": "Upload categories",
+        "description":"Import categories from a csv file",
+        "requestBody":{
+          "content":{
+            "multipart/form-data":{
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": [
+          "Specifications"
+        ],
+        "summary": "Create a specification",
+        "description": "Create a new specification and save on database",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Specification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Specifications already exists."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Specification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "Cambio automático",
+        "description":"Cambio automático"
       }
     }
   }
