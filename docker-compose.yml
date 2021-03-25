@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  database_ignite:
+  database:
     image: postgres
     container_name: database_ignite
     restart: always
@@ -13,22 +13,24 @@ services:
       - POSTGRES_DB=rentalx
     volumes:
       - pgdata:/data/postgres
-    networks:
-      - backend
+
+
   app:
     build: .
     container_name: rentalx
+    restart: always
     ports:
       - 3333:3333
+      - 9229:9229
     volumes:
       - .:/usr/app
-    networks:
-      - backend
+    links:
+      - database
+    depends_on:
+      - database
+
+
 
 volumes:
   pgdata:
     driver: local
-
-networks:
-  backend:
-    driver: "bridge"
