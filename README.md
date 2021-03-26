@@ -1,4 +1,4 @@
-<div align=center><img src=".github/logo.png"/></div>
+<div align=center><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb6b58fb0-1ef0-4ff0-86f8-e7b7cc381096%2FLogotipo.png?table=block&id=5f904e26-cf38-4481-97d0-46103aa753c5&width=2880&userId=be73d59d-c726-48cf-9eb7-ff6fe122f129&cache=v2"/></div>
 <br/>
 <h3 align=center>A nodejs sports car rent API 🔥</h3>
 
