@@ -79,6 +79,3 @@ The API endpoints are well documented on the swagger interface. To check it, jus
 
 This project is under the MIT License. Read the [LICENSE](LICENSE) file for further information.
 
----
-
-<div align=center>Made with ❤️ by <a href="https://www.linkedin.com/in/lucas-prazeres/">Lucas Prazeres</a></div>
