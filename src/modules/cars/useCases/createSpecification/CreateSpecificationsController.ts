@@ -4,19 +4,15 @@ import { CreateSpecificationsUseCase } from './CreateSpecificationsUseCase'
 
 class CreateSpecificationsController {
   public async handle(request: Request, response: Response): Promise<Response> {
-    try {
-      const { name, description } = request.body
+    const { name, description } = request.body
 
-      const createSpecificationsUseCase = container.resolve(
-        CreateSpecificationsUseCase
-      )
+    const createSpecificationsUseCase = container.resolve(
+      CreateSpecificationsUseCase
+    )
 
-      await createSpecificationsUseCase.execute({ name, description })
+    await createSpecificationsUseCase.execute({ name, description })
 
-      return response.status(201).send()
-    } catch (error) {
-      return response.status(400).json({ error: error.message })
-    }
+    return response.status(201).send()
   }
 }
 

@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import multer from 'multer'
+import { ensureAuthentication } from '../middlewares/ensureAuthentication'
 
 import { CreateCategoriesController } from '../modules/cars/useCases/createCategory/CreateCategoriesController'
 import { ImportCategoriesController } from '../modules/cars/useCases/importCategory/ImportCategoriesController'
@@ -14,7 +15,11 @@ const createCategoryController = new CreateCategoriesController()
 const listCategoriesController = new ListCategoriesController()
 const importCategoriesController = new ImportCategoriesController()
 
-categoriesRouter.post('/', createCategoryController.handle)
+categoriesRouter.post(
+  '/',
+  ensureAuthentication,
+  createCategoryController.handle
+)
 categoriesRouter.get('/', listCategoriesController.handle)
 
 categoriesRouter.post(
