@@ -77,4 +77,4 @@ The API endpoints are well documented on the swagger interface. To check it, jus
 ---
 <div align=center>Project By <a href="https://www.linkedin.com/in/felipekafuri/">Felipe Ramos Kafuri</a></div>
 
-<div align=center>README TEMPLATE BY <a href="https://www.linkedin.com/in/lucas-prazeres/">Lucas Prazeres</a></div>
+<div align=center>README TEMPLATE BY Lucas Prazeres</div>
