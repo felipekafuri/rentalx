@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../errors/AppError'
 import { deleteFile } from '../../../../utils/file'
+import { User } from '../../entities/User'
 
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 
@@ -16,7 +17,7 @@ class UpdateUserAvatarUseCase {
     private usersRepository: IUsersRepository
   ) {}
 
-  public async execute({ user_id, avatarFile }: IRequestDTO): Promise<void> {
+  public async execute({ user_id, avatarFile }: IRequestDTO): Promise<User> {
     const user = await this.usersRepository.findById(user_id)
 
     if (!user) {
@@ -29,7 +30,9 @@ class UpdateUserAvatarUseCase {
 
     user.avatar = avatarFile
 
-    await this.usersRepository.update(user)
+    const updatedUser = await this.usersRepository.update(user)
+
+    return updatedUser
   }
 }
 

@@ -1,3 +1,4 @@
+import { classToClass } from 'class-transformer'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { UpdateUserAvatarUseCase } from './UpdateUserAvatarUseCase'
@@ -9,9 +10,12 @@ class UpdateUserAvatarController {
 
     const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase)
 
-    await updateUserAvatarUseCase.execute({ user_id, avatarFile })
+    const updatedUser = await updateUserAvatarUseCase.execute({
+      user_id,
+      avatarFile
+    })
 
-    return response.status(204).send()
+    return response.status(204).send(classToClass(updatedUser))
   }
 }
 

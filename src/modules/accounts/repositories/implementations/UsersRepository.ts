@@ -40,8 +40,10 @@ class UsersRepository implements IUsersRepository {
     return user
   }
 
-  async update(user: User): Promise<void> {
+  async update(user: User): Promise<User> {
     this.ormRepository.save(user)
+
+    return user
   }
 }
 
