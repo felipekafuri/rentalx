@@ -69,7 +69,7 @@ git push origin <your-branch-name>
 
 ## Documentation
 
-The API endpoints are well documented on the swagger interface. To check it, just run the api and access 
+The API endpoints are well documented on the swagger interface. To check it, just run the api and access
 
 *http://localhost:3333/api-docs*
 
