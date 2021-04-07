@@ -14,8 +14,6 @@
 
 > **RNF** => Requisitos não funcionais
 
-
-
 > **RN** => Regra de negócio
 
 - Não deve ser possível cadastrar um carro com uma placa ja existente.
@@ -51,7 +49,7 @@
 # Cadastro de imagens do carros
 
 > **RF**
-- Deve ser possível cadastrar a imagem do carro.
+- Deve ser possível cadastrar as imagens do carro.
 - Deve ser possível listar todos os carros.
 
 > **RNF**
