@@ -1,4 +1,11 @@
-node_modules
+node_modules/
+dist/
+.idea/
+.vscode/
+temp/
 tmp/*
 !tmp/.gitkeep
-.docker
+.env
+.ormconfig.json
+coverage
+loaderio/

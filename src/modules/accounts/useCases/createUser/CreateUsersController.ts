@@ -1,6 +1,7 @@
 import { classToClass } from 'class-transformer'
-import { Response, Request } from 'express'
+import { Request, Response } from 'express'
 import { container } from 'tsyringe'
+
 import { CreateUsersUseCase } from './CreateUsersUseCase'
 
 class CreateUsersController {

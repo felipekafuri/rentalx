@@ -1,8 +1,9 @@
-import { inject, injectable } from 'tsyringe'
-import { User } from '../../entities/User'
-import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { hash } from 'bcryptjs'
-import { AppError } from '../../../../errors/AppError'
+import { inject, injectable } from 'tsyringe'
+
+import { AppError } from '@errors/AppError'
+import { User } from '@modules/accounts/infra/typeorm/entities/User'
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 
 interface IRequestDTO {
   email: string

@@ -1,5 +1,6 @@
-import { ICreateCategoryDTO } from '../../dtos/ICategoryDTO'
-import { Category } from '../../entities/Category'
+import { ICreateCategoryDTO } from '@modules/cars/dtos/ICategoryDTO'
+import { Category } from '@modules/cars/infra/typeorm/entities/Category'
+
 import { ICategoriesRepository } from '../ICategoriesRepository'
 
 class InMemoryCategoriesRepository implements ICategoriesRepository {
