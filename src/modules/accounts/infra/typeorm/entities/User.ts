@@ -11,7 +11,7 @@ import { v4 } from 'uuid'
 @Entity('users')
 class User {
   @PrimaryColumn('uuid')
-  id?: string
+  id: string
 
   @Column()
   name: string

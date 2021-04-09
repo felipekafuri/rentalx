@@ -31,6 +31,7 @@ class CreateCarUseCase {
     category_id,
     fine_amount
   }: IRequestDTO): Promise<Car> {
+    // TODO Create verification if category exists (shouldn't be able to create a car with inexistent category)
     const carAlreadyExists = await this.carsRepository.findByLicensePlate(
       license_plate
     )

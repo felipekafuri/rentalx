@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import '@shared/infra/typeorm'
+import createConnection from '@shared/infra/typeorm'
 import '@shared/container'
 import 'express-async-errors'
 
@@ -11,6 +11,7 @@ import { routes } from '@shared/infra/http/routes'
 
 import swaggerFile from '../../../swagger.json'
 
+createConnection()
 const app = express()
 app.use(express.json())
 

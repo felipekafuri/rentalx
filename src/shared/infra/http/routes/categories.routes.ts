@@ -6,6 +6,7 @@ import { ImportCategoriesController } from '@modules/cars/useCases/importCategor
 import { ListCategoriesController } from '@modules/cars/useCases/listCategories/ListCategoriesController'
 
 import { ensureAuthentication } from '../middlewares/ensureAuthentication'
+import { ensureIsAdmin } from '../middlewares/ensureIsAdmin'
 
 const categoriesRouter = Router()
 
@@ -19,12 +20,15 @@ const importCategoriesController = new ImportCategoriesController()
 categoriesRouter.post(
   '/',
   ensureAuthentication,
+  ensureIsAdmin,
   createCategoryController.handle
 )
 categoriesRouter.get('/', listCategoriesController.handle)
 
 categoriesRouter.post(
   '/import',
+  ensureAuthentication,
+  ensureIsAdmin,
   upload.single('file'),
   importCategoriesController.handle
 )

@@ -4,7 +4,7 @@ import { v4 } from 'uuid'
 @Entity('specifications')
 class Specification {
   @PrimaryColumn('uuid')
-  id?: string
+  id: string
 
   @Column()
   name: string
