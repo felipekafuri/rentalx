@@ -1,6 +1,8 @@
 import { AppError } from '@errors/AppError'
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental'
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository'
+import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider'
+import { inject, injectable } from 'tsyringe'
 
 interface IRequestDTO {
   user_id: string
@@ -8,8 +10,14 @@ interface IRequestDTO {
   expect_return_date: Date
 }
 
+@injectable()
 class CreateRentalUseCase {
-  constructor(private rentalsRepository: IRentalsRepository) {}
+  constructor(
+    @inject('DateProvider')
+    private dateProvider: IDateProvider,
+    @inject('RentalsRepository')
+    private rentalsRepository: IRentalsRepository
+  ) {}
 
   async execute({
     user_id,
@@ -19,13 +27,23 @@ class CreateRentalUseCase {
     const rentalExists = await this.rentalsRepository.findByUserId(user_id)
 
     if (rentalExists && rentalExists.user_id === user_id) {
-      console.log('caiu user_id')
       throw new AppError('This user already rent a car.')
     }
 
     if (rentalExists && rentalExists.car_id === car_id) {
-      console.log('caiu car_id')
       throw new AppError('Rental for this car already exists')
+    }
+
+    const dateNow = this.dateProvider.dateNow()
+
+    const differenceInHours = this.dateProvider.compareInHours(
+      dateNow,
+      expect_return_date
+    )
+    console.log(differenceInHours)
+
+    if (differenceInHours < 24) {
+      throw new AppError('Invalid return time!')
     }
 
     const rental = await this.rentalsRepository.create({
