@@ -40,7 +40,6 @@ class CreateRentalUseCase {
       dateNow,
       expect_return_date
     )
-    console.log(differenceInHours)
 
     if (differenceInHours < 24) {
       throw new AppError('Invalid return time!')
