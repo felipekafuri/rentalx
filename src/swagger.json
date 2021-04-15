@@ -16,6 +16,11 @@
         ],
         "summary": "Create a category",
         "description": "Create a new category and save on database",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -77,14 +82,21 @@
         }
       }
     },
-    "/categories/import":{
-      "post":{
-        "tags":["Categories"],
+    "/categories/import": {
+      "post": {
+        "tags": [
+          "Categories"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Upload categories",
-        "description":"Import categories from a csv file",
-        "requestBody":{
-          "content":{
-            "multipart/form-data":{
+        "description": "Import categories from a csv file",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -111,11 +123,16 @@
         ],
         "summary": "Create a specification",
         "description": "Create a new specification and save on database",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/Specification"
+                "$ref": "#/components/schemas/Specification"
               }
             }
           }
@@ -129,22 +146,179 @@
           }
         }
       }
+    },
+    "/sessions": {
+      "post": {
+        "tags": [
+          "Session"
+        ],
+        "summary": "Authenticate user",
+        "description": "Route thats create a session for the user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Wrong E-mail/password combination"
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Create a new car",
+        "description": "Create a new car.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Car already exists."
+          }
+        }
+      }
+    },
+    "/cars/images/{id}": {
+      "post": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Upload images",
+        "description": "Upload Images",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
     }
   },
-  "definitions": {
-    "Specification": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
+  "components": {
+    "schemas": {
+      "Specification": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
         },
-        "description": {
-          "type": "string"
+        "example": {
+          "name": "Cambio automático",
+          "description": "Cambio automático"
         }
       },
-      "example": {
-        "name": "Cambio automático",
-        "description":"Cambio automático"
+      "Car": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "daily_rate": {
+            "type": "number"
+          },
+          "license_plate": {
+            "type": "string"
+          },
+          "fine_amount": {
+            "type": "number"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Audi A4",
+          "description": "Super Slow",
+          "daily_rate": 150,
+          "license_plate": "PRM-3465",
+          "brand": "Audi",
+          "category_id": "3044a7ad-9eb4-4372-ab33-263d7f244def",
+          "fine_amount": 90
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
