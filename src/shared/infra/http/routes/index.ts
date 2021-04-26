@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { authenticationRouter } from './authenticate.routes'
 import { carsRouter } from './cars.routes'
 import { categoriesRouter } from './categories.routes'
+import { passwordRouter } from './password.routes'
 import { rentalRouter } from './rentals.routes'
 import { specificationsRouter } from './specifications.routes'
 import { userRouter } from './users.routes'
@@ -14,5 +15,6 @@ routes.use('/users', userRouter)
 routes.use('/specifications', specificationsRouter)
 routes.use('/sessions', authenticationRouter)
 routes.use('/cars', carsRouter)
+routes.use('/password', passwordRouter)
 
 export { routes }
