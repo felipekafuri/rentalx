@@ -50,7 +50,7 @@ class AuthenticateUserUseCase {
     }
 
     const { expiresIn } = auth
-    const token = sign({}, String(process.env.APP_SECRET), {
+    const token = sign({}, auth.secret, {
       subject: userExists.id,
       expiresIn
     })
