@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe'
 import { AppError } from '@errors/AppError'
 import { User } from '@modules/accounts/infra/typeorm/entities/User'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
-import { deleteFile } from '@utils/file'
+import { IStorageProvider } from '@shared/container/providers/SotrageProvider/IStorageProvider'
 
 interface IRequestDTO {
   user_id: string
@@ -14,7 +14,9 @@ interface IRequestDTO {
 class UpdateUserAvatarUseCase {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider
   ) {}
 
   public async execute({ user_id, avatarFile }: IRequestDTO): Promise<User> {
@@ -25,8 +27,10 @@ class UpdateUserAvatarUseCase {
     }
 
     if (user.avatar) {
-      await deleteFile(`./tmp/avatar/${user.avatar}`)
+      await this.storageProvider.delete(user.avatar, 'avatar')
     }
+
+    await this.storageProvider.save(avatarFile, 'avatar')
 
     user.avatar = avatarFile
 

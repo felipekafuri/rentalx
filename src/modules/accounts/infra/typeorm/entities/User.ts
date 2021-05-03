@@ -1,4 +1,4 @@
-import { Exclude } from 'class-transformer'
+import { Exclude, Expose } from 'class-transformer'
 import {
   Column,
   CreateDateColumn,
@@ -37,6 +37,19 @@ class User {
 
   @UpdateDateColumn()
   updated_at: string
+
+  @Expose({ name: 'avatar_url' })
+  getAvatarUrl(): string | null {
+    switch (process.env.DISK) {
+      case 'local':
+        return `https://localhost:3333/files/${this.avatar}`
+      case 's3':
+        return `${process.env.AWS_BUCKET_URL}/avatar/${this.avatar}`
+
+      default:
+        return null
+    }
+  }
 
   constructor() {
     if (!this.id) {

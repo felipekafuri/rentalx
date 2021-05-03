@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
+
 import { UploadCarImagesUseCase } from './UploadCarImagesUseCase'
 
 interface IFiles {
@@ -7,20 +8,19 @@ interface IFiles {
 }
 
 class UploadCarImagesController {
-  public async handle(request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
     const images = request.files as IFiles[]
 
+    const fileNames = images.map(file => file.filename)
+
     const uploadCarImagesUseCase = container.resolve(UploadCarImagesUseCase)
-
-    const images_name = images.map(file => file.filename)
-
-    const carImages = uploadCarImagesUseCase.execute({
+    await uploadCarImagesUseCase.execute({
       car_id: id,
-      images_name
+      images_name: fileNames
     })
 
-    return response.status(201).json(carImages)
+    return response.status(201).send()
   }
 }
 

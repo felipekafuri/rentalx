@@ -16,6 +16,9 @@ import { RentalsRepository } from '@modules/rentals/infra/typeorm/repositories/R
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRespoitory'
 import { UsersTokensRepository } from '@modules/accounts/infra/typeorm/repositories/UsersTokensRepository'
+import { LocalStorageProvider } from './providers/SotrageProvider/implementations/LocalStorageProvider'
+import { IStorageProvider } from './providers/SotrageProvider/IStorageProvider'
+import { S3StorageProvider } from './providers/SotrageProvider/implementations/S3StorageProvider'
 
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
@@ -47,4 +50,9 @@ container.registerSingleton<IRentalsRepository>(
 container.registerSingleton<IUsersTokensRepository>(
   'UsersTokensRepository',
   UsersTokensRepository
+)
+
+container.registerSingleton<IStorageProvider>(
+  'StorageProvider',
+  S3StorageProvider
 )
