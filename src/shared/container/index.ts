@@ -1,5 +1,4 @@
 import '@shared/container/providers'
-
 import { container } from 'tsyringe'
 
 import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository'
@@ -54,5 +53,5 @@ container.registerSingleton<IUsersTokensRepository>(
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
-  S3StorageProvider
+  process.env.DISK === 's3' ? S3StorageProvider : LocalStorageProvider
 )
