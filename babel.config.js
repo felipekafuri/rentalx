@@ -11,7 +11,7 @@ module.exports = {
         '@config': './src/config',
         '@shared': './src/shared',
         '@utils':'./src/utils',
-        '@errors/': './src/errors'
+        '@errors': './src/errors'
       }
     }],
     'babel-plugin-transform-typescript-metadata',
