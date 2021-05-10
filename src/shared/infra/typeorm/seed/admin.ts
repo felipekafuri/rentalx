@@ -4,7 +4,7 @@ import { v4 } from 'uuid'
 import createConnection from '../index'
 
 async function create() {
-  const connection = await createConnection('localhost')
+  const connection = await createConnection()
 
   const id = v4()
   const password = await hash(String(process.env.ADMIN_PASSWORD), 8)
